@@ -11,6 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set the correct target branch
+        id: get_branch
+        run: |
+          echo "TARGET_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
+
       - name: Push to ReadMe Docs
         uses: cpina/github-action-push-to-another-repository@v1
         with:
@@ -18,7 +23,7 @@ jobs:
           destination-github-username: 'algol22'
           destination-repository-name: 'readme-docs'
           user-email: 'andriyslb@gmail.com'
-          target-branch: 'main'  # Specify the target branch here
+          target-branch: ${{ env.TARGET_BRANCH }}  # Dynamically set branch
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
 
@@ -29,7 +34,7 @@ jobs:
           destination-github-username: 'algol22'
           destination-repository-name: 'readme-consumer-a'
           user-email: 'andriyslb@gmail.com'
-          target-branch: 'main'  # Specify the target branch here
+          target-branch: ${{ env.TARGET_BRANCH }}  # Dynamically set branch
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
 
@@ -40,6 +45,6 @@ jobs:
           destination-github-username: 'algol22'
           destination-repository-name: 'readme-consumer-b'
           user-email: 'andriyslb@gmail.com'
-          target-branch: 'main'  # Specify the target branch here
+          target-branch: ${{ env.TARGET_BRANCH }}  # Dynamically set branch
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
