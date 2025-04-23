@@ -37,9 +37,9 @@ jobs:
         uses: cpina/github-action-push-to-another-repository@v1
         with:
           source-directory: 'docs'
-          destination-github-username: your-username
+          destination-github-username: 'algol22'
           destination-repository-name: 'readme-consumer-b'
-          user-email: 'you@example.com'
+          user-email: 'andriyslb@gmail.com'
           commit-message: 'Sync docs to Consumer B'
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
