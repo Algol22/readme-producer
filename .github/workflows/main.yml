@@ -18,6 +18,11 @@ jobs:
           git checkout main || git checkout master  # Fallback if 'main' is not found
           git pull origin main || git pull origin master  # Ensure we're up-to-date with remote
 
+      # Ensure branch exists and create it if not
+      - name: Create branch if missing
+        run: |
+          git branch -M main || git branch -M master
+
       # Push to ReadMe Docs
       - name: Push to ReadMe Docs
         uses: cpina/github-action-push-to-another-repository@v1
