@@ -1,0 +1,45 @@
+name: Sync Docs to ReadMe and Consumers
+
+on:
+  push:
+    paths:
+      - 'docs/**'  # Trigger when /docs changes
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Push to ReadMe Docs
+        uses: cpina/github-action-push-to-another-repository@v1
+        with:
+          source-directory: 'docs'
+          destination-github-username: 'algol22'
+          destination-repository-name: 'readme-docs'
+          user-email: 'andriyslb@gmail.com'
+          commit-message: 'Sync docs to ReadMe'
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
+
+      - name: Push to Consumer A
+        uses: cpina/github-action-push-to-another-repository@v1
+        with:
+          source-directory: 'docs'
+          destination-github-username: 'algol22'
+          destination-repository-name: 'readme-consumer-a'
+          user-email: 'andriyslb@gmail.com'
+          commit-message: 'Sync docs to Consumer A'
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
+
+      - name: Push to Consumer B
+        uses: cpina/github-action-push-to-another-repository@v1
+        with:
+          source-directory: 'docs'
+          destination-github-username: your-username
+          destination-repository-name: 'readme-consumer-b'
+          user-email: 'you@example.com'
+          commit-message: 'Sync docs to Consumer B'
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
