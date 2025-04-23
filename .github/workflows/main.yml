@@ -18,6 +18,7 @@ jobs:
           destination-github-username: 'algol22'
           destination-repository-name: 'readme-docs'
           user-email: 'andriyslb@gmail.com'
+          target-branch: 'main'  # Specify the target branch here
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
 
@@ -28,6 +29,7 @@ jobs:
           destination-github-username: 'algol22'
           destination-repository-name: 'readme-consumer-a'
           user-email: 'andriyslb@gmail.com'
+          target-branch: 'main'  # Specify the target branch here
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
 
@@ -38,5 +40,6 @@ jobs:
           destination-github-username: 'algol22'
           destination-repository-name: 'readme-consumer-b'
           user-email: 'andriyslb@gmail.com'
+          target-branch: 'main'  # Specify the target branch here
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
