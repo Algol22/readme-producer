@@ -1,0 +1,57 @@
+name: Sync Docs to ReadMe and Consumers (v1.0)
+
+on:
+  push:
+    branches:
+      - 'v1.0'  # Trigger when /docs changes in v1.0 branch
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the v1.0 branch of the readme-producer repository
+      - uses: actions/checkout@v3
+        name: Checkout v1.0 Branch
+
+      # Ensure the correct branch is checked out in producer repo
+      - name: Checkout v1.0 Branch
+        run: |
+          git fetch origin
+          git checkout v1.0
+          git pull origin v1.0
+
+      # # Push to ReadMe Docs Repository (v1.0 branch)
+      # - name: Push to ReadMe Docs (v1.0)
+      #   uses: cpina/github-action-push-to-another-repository@v1
+      #   with:
+      #     source-directory: 'docs'
+      #     destination-github-username: 'algol22'
+      #     destination-repository-name: 'readme-docs'
+      #     user-email: 'andriyslb@gmail.com'
+      #     target-branch: 'v1.0'  # Explicitly specify the v1.0 branch
+      #   env:
+      #     API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
+
+      # Push to Consumer A (v1.0 branch)
+      - name: Push to Consumer A (v1.0)
+        uses: cpina/github-action-push-to-another-repository@v1
+        with:
+          source-directory: 'docs'
+          destination-github-username: 'algol22'
+          destination-repository-name: 'readme-consumer-a'
+          user-email: 'andriyslb@gmail.com'
+          target-branch: 'v1.0'  # Explicitly specify the v1.0 branch
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
+
+      # Push to Consumer B (v1.0 branch)
+      - name: Push to Consumer B (v1.0)
+        uses: cpina/github-action-push-to-another-repository@v1
+        with:
+          source-directory: 'docs'
+          destination-github-username: 'algol22'
+          destination-repository-name: 'readme-consumer-b'
+          user-email: 'andriyslb@gmail.com'
+          target-branch: 'v1.0'  # Explicitly specify the v1.0 branch
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
