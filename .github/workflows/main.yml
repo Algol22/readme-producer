@@ -18,21 +18,22 @@ jobs:
           git checkout main || git checkout master  # Fallback if 'main' is not found
           git pull origin main || git pull origin master  # Ensure we're up-to-date with remote
 
-      # Ensure branch exists and create it if not
+      # Ensure branch exists and create it if missing
       - name: Create branch if missing
         run: |
           git branch -M main || git branch -M master
 
-      # Push to ReadMe Docs
-      - name: Push to ReadMe Docs
-        uses: cpina/github-action-push-to-another-repository@v1
-        with:
-          source-directory: 'docs'
-          destination-github-username: 'algol22'
-          destination-repository-name: 'readme-docs'
-          user-email: 'andriyslb@gmail.com'
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
+      # # Push to ReadMe Docs
+      # - name: Push to ReadMe Docs
+      #   uses: cpina/github-action-push-to-another-repository@v1
+      #   with:
+      #     source-directory: 'docs'
+      #     destination-github-username: 'algol22'
+      #     destination-repository-name: 'readme-docs'
+      #     user-email: 'andriyslb@gmail.com'
+      #     target-branch: 'main'  # Explicitly specify the branch name to avoid confusion
+      #   env:
+      #     API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
 
       # Push to Consumer A
       - name: Push to Consumer A
@@ -42,6 +43,7 @@ jobs:
           destination-github-username: 'algol22'
           destination-repository-name: 'readme-consumer-a'
           user-email: 'andriyslb@gmail.com'
+          target-branch: 'main'  # Explicitly specify the branch name to avoid confusion
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
 
@@ -53,5 +55,6 @@ jobs:
           destination-github-username: 'algol22'
           destination-repository-name: 'readme-consumer-b'
           user-email: 'andriyslb@gmail.com'
+          target-branch: 'main'  # Explicitly specify the branch name to avoid confusion
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
