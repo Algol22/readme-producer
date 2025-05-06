@@ -1,0 +1,58 @@
+name: Sync Docs to ReadMe and Consumers
+
+on:
+  push:
+    paths:
+      - 'docs/**'  # Trigger when /docs changes
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Ensure the correct branch is checked out
+      - name: Checkout target branch
+        run: |
+          git fetch origin
+          git checkout main || git checkout master  # Fallback if 'main' is not found
+          git pull origin main || git pull origin master  # Ensure we're up-to-date with remote
+      # Ensure branch exists and create it if missing
+      - name: Create branch if missing
+        run: |
+          git branch -M main || git branch -M master
+      # # Push to ReadMe Docs
+      # - name: Push to ReadMe Docs
+      #   uses: cpina/github-action-push-to-another-repository@v1
+      #   with:
+      #     source-directory: 'docs'
+      #     destination-github-username: 'algol22'
+      #     destination-repository-name: 'readme-docs'
+      #     user-email: 'andriyslb@gmail.com'
+      #     target-branch: 'main'  # Explicitly specify the branch name to avoid confusion
+      #   env:
+      #     API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
+
+      # Push to Consumer A
+      - name: Push to Consumer A
+        uses: cpina/github-action-push-to-another-repository@v1
+        with:
+          source-directory: 'docs'
+          destination-github-username: 'algol22'
+          destination-repository-name: 'readme-consumer-a'
+          user-email: 'andriyslb@gmail.com'
+          target-branch: 'main'  # Explicitly specify the branch name to avoid confusion
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
+
+      # Push to Consumer B
+      - name: Push to Consumer B
+        uses: cpina/github-action-push-to-another-repository@v1
+        with:
+          source-directory: 'docs'
+          destination-github-username: 'algol22'
+          destination-repository-name: 'readme-consumer-b'
+          user-email: 'andriyslb@gmail.com'
+          target-branch: 'main'  # Explicitly specify the branch name to avoid confusion
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
