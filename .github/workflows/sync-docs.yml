@@ -14,23 +14,24 @@ jobs:
         name: Checkout v1.0 Branch
 
       # Ensure the correct branch is checked out in producer repo
-      - name: Checkout v1.0 Branch
+      - name: Ensure v1.0 Branch is Checked Out
         run: |
           git fetch origin
           git checkout v1.0
           git pull origin v1.0
 
-      # # Push to ReadMe Docs Repository (v1.0 branch)
-      # - name: Push to ReadMe Docs (v1.0)
-      #   uses: cpina/github-action-push-to-another-repository@v1
-      #   with:
-      #     source-directory: 'docs'
-      #     destination-github-username: 'algol22'
-      #     destination-repository-name: 'readme-docs'
-      #     user-email: 'andriyslb@gmail.com'
-      #     target-branch: 'v1.0'  # Explicitly specify the v1.0 branch
-      #   env:
-      #     API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
+      # Push to ReadMe Docs Repository (v1.0 branch)
+      - name: Push to ReadMe Docs (v1.0)
+        uses: cpina/github-action-push-to-another-repository@v1
+        with:
+          source-directory: 'docs'
+          destination-github-username: 'algol22'
+          destination-repository-name: 'readme-docs'
+          user-email: 'andriyslb@gmail.com'
+          target-branch: 'v1.0'
+          create-target-branch-if-needed: true
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
 
       # Push to Consumer A (v1.0 branch)
       - name: Push to Consumer A (v1.0)
@@ -40,7 +41,8 @@ jobs:
           destination-github-username: 'algol22'
           destination-repository-name: 'readme-consumer-a'
           user-email: 'andriyslb@gmail.com'
-          target-branch: 'v1.0'  # Explicitly specify the v1.0 branch
+          target-branch: 'v1.0'
+          create-target-branch-if-needed: true
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
 
@@ -52,6 +54,7 @@ jobs:
           destination-github-username: 'algol22'
           destination-repository-name: 'readme-consumer-b'
           user-email: 'andriyslb@gmail.com'
-          target-branch: 'v1.0'  # Explicitly specify the v1.0 branch
+          target-branch: 'v1.0'
+          create-target-branch-if-needed: true
         env:
           API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
